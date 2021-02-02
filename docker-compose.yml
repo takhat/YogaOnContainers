@@ -1,0 +1,40 @@
+version: '3.4'
+
+networks:
+  frontend:
+  backend:
+
+services:
+  catalog:
+    image: yoga/catalogapi
+    build:
+      context: .\CatalogAPI
+      dockerfile: Dockerfile
+    environment:
+      ExternalCatalogBaseUrl: http://localhost:6600
+      DatabaseServer: mssqlserver
+      DatabaseName: YogaCatalogDb
+      DatabaseUser: sa
+      DatabasePassword: CatalogApi(!)
+    ports:
+      - "6600:80"
+    container_name:yogacatalogapi
+    networks:
+      - frontend
+      - backend
+    depends_on:
+      - mssqlserver
+
+  mssqlserver:
+    image: "microsoft/mssql-server-linux:latest"
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: CatalogApi(!)
+    ports:
+      - "1300:1433"
+    container_name: yogasqlserver
+    networks:
+      - backend
+
+
+
