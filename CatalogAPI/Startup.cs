@@ -27,7 +27,10 @@ namespace CatalogAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //confirguring controllers since its MVC model
             services.AddControllers();
+
+            //configuring db
             var databaseServer = Configuration["DatabaseServer"];
             var databaseName = Configuration["DatabaseName"];
             var databaseUser = Configuration["DatabaseUser"];
@@ -37,6 +40,17 @@ namespace CatalogAPI
             services.AddDbContext<CatalogContext>(options => 
                 options.UseSqlServer(connectionString)
             );
+
+            //configure Swagger = API documentation
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "YogaOnContainers - Catalog API",
+                    Version = "v1",
+                    Description = "Catalog microservice"
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +66,10 @@ namespace CatalogAPI
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSwagger()
+                .UseSwaggerUI(e => e.SwaggerEndpoint("/swagger/v1/swagger.json", "CatalogAPI v1")
+                );
 
             app.UseEndpoints(endpoints =>
             {
