@@ -18,7 +18,7 @@ services:
       DatabasePassword: CatalogApi(!)
     ports:
       - "6600:80"
-    container_name:yogacatalogapi
+    container_name: yogacatalogapi
     networks:
       - frontend
       - backend
@@ -31,7 +31,7 @@ services:
       ACCEPT_EULA: Y
       SA_PASSWORD: CatalogApi(!)
     ports:
-      - "1300:1433"
+      - "1400:1433"
     container_name: yogasqlserver
     networks:
       - backend

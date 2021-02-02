@@ -40,12 +40,12 @@ namespace CatalogAPI.Data
             {
                 new CatalogType
                 {
-                    Type = "Monthly Pass - Adults"
+                    Type = "Adults"
                 },
 
                 new CatalogType
                 {
-                    Type = "Monthly Pass - Teens and Tweens"
+                    Type = "Kids and Teens"
                 }
             };
         }
