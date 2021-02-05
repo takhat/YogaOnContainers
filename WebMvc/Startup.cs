@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using WebMvc.Infrastructure;
+using WebMvc.Services;
 
 namespace WebMvc
 {
@@ -24,6 +26,12 @@ namespace WebMvc
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            //Below we define who is implementor of my interface. Singleton = 1 implementation
+            //We make CustomHttpClient the (Singleton/only) implementor of IHttpClient. 
+            //In future if there is another implementor we need to change it here.
+            services.AddSingleton<IHttpClient, CustomHttpClient>();
+            //Transient = there can be more than 1 instances
+            services.AddTransient<ICatalogService, CatalogService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,7 +58,7 @@ namespace WebMvc
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Catalog}/{action=Index}/{id?}");
             });
         }
     }

@@ -12,6 +12,6 @@ namespace WebMvc.ViewModels
         public IEnumerable<SelectListItem> Types { get; set; }
         public IEnumerable<CatalogItem> CatalogItems { get; set; }
         public PaginationInfo PaginationInfo { get; set; }
-        public int? TypeFilterApplied { get; set; }
+        public int? TypesFilterApplied { get; set; }
     }
 }

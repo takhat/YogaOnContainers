@@ -16,8 +16,9 @@ namespace WebMvc.Services
         private readonly string _baseUrl;
         private readonly IHttpClient _client;
         public CatalogService(IConfiguration config, IHttpClient client)
+        //In Startup.cs we will say that CustomHttpClient is the implementor of IHttpClient
         {
-            _baseUrl = $"{ config["CatalogUrl"]}/api/catalog/";
+            _baseUrl = $"{config["CatalogUrl"]}/api/catalog/";
             _client = client;
         }
         public async Task<Catalog> GetCatalogItemsAsync(int page, int size, int? type)

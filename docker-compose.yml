@@ -11,13 +11,13 @@ services:
       context: .\CatalogAPI
       dockerfile: Dockerfile
     environment:
-      ExternalCatalogBaseUrl: http://localhost:6600
+      ExternalCatalogBaseUrl: http://localhost:6610
       DatabaseServer: mssqlserver
       DatabaseName: YogaCatalogDb
       DatabaseUser: sa
       DatabasePassword: CatalogApi(!)
     ports:
-      - "6600:80"
+      - "6610:80"
     container_name: yogacatalogapi
     networks:
       - frontend

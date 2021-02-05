@@ -19,9 +19,9 @@ namespace WebMvc.Controllers
         //call to Get Types for filtering data
         public async Task<IActionResult> Index(int? page, int? typeFilterApplied)
         {
-            var itemsOnPage = 10;
-            var catalog = await _service.GetCatalogItemsAsync(page ?? 0, //??equal to: "page==null ?? 0 : page"
-                itemsOnPage, typeFilterApplied);
+            var itemsOnPage = 2;
+            var catalog = await _service.GetCatalogItemsAsync(page ?? 0, itemsOnPage, typeFilterApplied); // same as "page==null ?? 0 : page"
+
             var vm = new CatalogIndexViewModel
             {
                 CatalogItems = catalog.Data,
@@ -33,7 +33,7 @@ namespace WebMvc.Controllers
                     TotalItems = catalog.Count,
                     TotalPages = (int)Math.Ceiling((decimal)catalog.Count / itemsOnPage)
                 },
-                TypeFilterApplied = typeFilterApplied ?? 0
+                TypesFilterApplied = typeFilterApplied ?? 0
             };
             return View(vm);
         }
