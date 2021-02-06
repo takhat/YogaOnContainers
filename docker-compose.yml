@@ -24,6 +24,22 @@ services:
       - backend
     depends_on:
       - mssqlserver
+  
+      
+  webmvc:
+    image: yoga/webmvc
+    build:
+      context: .\WebApp
+      dockerfile: Dockerfile
+    environment:
+      CatalogUrl: http://catalog
+    ports:
+      - "6611:80"
+    networks:
+      - frontend
+    depends_on:
+      - catalog
+
 
   mssqlserver:
     image: "microsoft/mssql-server-linux:latest"
@@ -35,6 +51,8 @@ services:
     container_name: yogasqlserver
     networks:
       - backend
+
+
 
 
 
